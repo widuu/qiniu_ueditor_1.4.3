@@ -14,12 +14,12 @@ $QINIU_RS_HOST	= 'http://rs.qbox.me';
 $QINIU_RSF_HOST	= 'http://rsf.qbox.me';
 
 //配置$QINIU_ACCESS_KEY和$QINIU_SECRET_KEY 为你自己的key
-$QINIU_ACCESS_KEY	= 'KUN6xYZlOAtid2MjHm90-6VFY2M7HC90ijDH4uOR';
-$QINIU_SECRET_KEY	= 'D-K57TE5hPe3krexftxLWFKmL2xbQEKA-mtkrUfB';
+$QINIU_ACCESS_KEY	= 'Ow2z_YbAXY-iksU0GaZEaN1Y9WERvoup8XTlMq6v';
+$QINIU_SECRET_KEY	= 'MZBjqJT9KG9zSTiVlplQn-ZAEbVT8CvMYyrYQs6X';
 
 //配置bucket为你的bucket
-$BUCKET = "gitwiduu";
+$BUCKET = "rimmvip";
 
 //配置你的域名访问地址
-$HOST  = "http://gitwiduu.u.qiniudn.com/";
+$HOST  = "http://dn-avhd.qbox.me/";
 
