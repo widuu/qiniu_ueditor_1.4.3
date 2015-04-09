@@ -39,10 +39,10 @@ qiniu_ueditor_1.4.3
 
 ###上传演示
 
-![./upload.png](./upload.png)
+![./upload.png](https://coding.net/u/widuu/p/qiniu_ueditor_1.4.3/git/raw/master/upload.png)
 
 ###图片在线管理
 
-![](./manage.png)
+![](https://coding.net/u/widuu/p/qiniu_ueditor_1.4.3/git/raw/master/manage.png)
 
 ###博客支持技术支持http://www.widuu.com
