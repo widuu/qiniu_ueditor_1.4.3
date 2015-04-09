@@ -14,7 +14,7 @@
 
 	$host  = $HOST;
 	
-	$time = time()+3600;
+	$time = time()+$TIMEOUT;
 	
 	if(empty($_GET["key"])){
 		exit('param error');

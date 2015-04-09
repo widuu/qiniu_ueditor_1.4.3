@@ -701,8 +701,15 @@
             uploader.on('uploadBeforeSend', function (file, data, header) {
                 //这里可以通过data对象添加POST参数
                 header['X_Requested_With'] = 'XMLHttpRequest';
-				data['key']= file.file.name;
-				var filename = file.file.name;
+				var type = editor.getOpt('imageSaveType');
+				var filename = '';
+				if(type == 'date'){
+					data['key']= Date.parse(new Date())+"."+file.file.ext;
+					var filename = Date.parse(new Date())+"."+file.file.ext;
+				}else{
+					data['key']= file.file.name;
+					var filename = file.file.name;
+				}
 				var token ="";
 				$.ajax({
 							dataType:'text',
