@@ -29,4 +29,22 @@ $TIMEOUT = "3600";
 //保存规则
 $SAVETYPE = "date";
 
+//开启水印
+$USEWATER = false;
+$WATERIMAGEURL = "http://gitwiduu.u.qiniudn.com/ueditor-bg.png"; //七牛上的图片地址
+//水印透明度
+$DISSOLVE = 50;
+//水印位置
+$GRAVITY = "SouthEast";
+//边距横向位置
+$DX  = 10;
+//边距纵向位置
+$DY  = 10;
+
+function urlsafe_base64_encode($data){
+	$find = array('+', '/');
+	$replace = array('-', '_');
+	return str_replace($find, $replace, base64_encode($data));
+}
+
 
