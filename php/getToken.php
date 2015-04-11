@@ -20,7 +20,7 @@
 		exit('param error');
 	}else{
 		
-		if($USEWATER){
+		if($USEWATER && empty($_GET['type'])){
 			$waterBase = urlsafe_base64_encode($WATERIMAGEURL);
 			$returnBody = "{\"url\":\"{$host}$(key)?watermark/1/image/{$waterBase}/dissolve/{$DISSOLVE}/gravity/{$GRAVITY}/dx/{$DX}/dy/{$DY}\", \"state\": \"SUCCESS\", \"name\": $(fname),\"size\": \"$(fsize)\",\"w\": \"$(imageInfo.width)\",\"h\": \"$(imageInfo.height)\"}";
 		}else{
