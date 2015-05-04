@@ -21,7 +21,7 @@ $QINIU_SECRET_KEY	= 'D-K57TE5hPe3krexftxLWFKmL2xbQEKA-mtkrUfB';
 $BUCKET = "gitwiduu";
 
 //配置你的域名访问地址
-$HOST  = "http://gitwiduu.u.qiniudn.com/";
+$HOST  = "http://gitwiduu.u.qiniudn.com";
 
 //上传超时时间
 $TIMEOUT = "3600";
