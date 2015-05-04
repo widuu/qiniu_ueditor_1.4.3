@@ -1,9 +1,9 @@
 <?php
 /**
  * 获取已上传的文件列表
- * User: Jinqn
- * Date: 14-04-09
- * Time: 上午10:17
+ * User: widuu
+ * Date: 5/4/2015
+ * Time: 上午8:14
  */
 
 include 'Qiniu_List.php';
@@ -52,7 +52,7 @@ if (!count($files['items'])) {
 $len = count($files['items']);
 for ($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
     if ( preg_match( "/\.($allowFiles)$/i" , $files['items'][$i]['key'] ) ) {
-             $list[] = array("url"=>$HOST.$files['items'][$i]['key']);
+             $list[] = array("url"=>$HOST."/".$files['items'][$i]['key']);
           }
     
 }
