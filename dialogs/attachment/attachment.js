@@ -522,7 +522,7 @@
                     var responseText = (ret._raw || ret),
                         json = utils.str2json(responseText);
                     if (json.state == 'SUCCESS') {
-                        _this.fileList.push(json);
+                        _this.fileList[$file.index()] = json;//指定键值防止乱序
                         $file.append('<span class="success"></span>');
                     } else {
                         $file.find('.error').text(json.state).show();
