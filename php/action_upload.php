@@ -71,7 +71,10 @@ $upfile = array(
         'fileName'=>$key,
         'fileBody'=>file_get_contents($_FILES[$fieldName]['tmp_name'])
     );
-
+if($base64 == "base64"){
+    $upfile['fileName'] = $key.'png';
+    $upfile['fileBody'] = base64_decode( $_POST[$fieldName] );
+}
 $config = array();
 $result = $qiniu->upload($config, $upfile);
 if(!empty($result['hash'])){
