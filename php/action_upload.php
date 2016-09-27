@@ -61,9 +61,9 @@ $config = array(
 $qiniu = new Qiniu($config);
 //命名规则
 if($SAVETYPE == 'date'){
-    $key = time().'.'.pathinfo($_FILES[$fieldName]["name"], PATHINFO_EXTENSION);  
+    $key = 'uploads/ueditor/'.date('Y-m-d').'/'.time().mt_rand(0,10).'.'.pathinfo($_FILES[$fieldName]["name"], PATHINFO_EXTENSION);  
 }else{
-    $key = $_FILES[$fieldName]['name'];
+    $key = 'uploads/ueditor/'.date('Y-m-d').'/'.$_FILES[$fieldName]['name'];
 }
 
 $upfile = array(
@@ -77,6 +77,8 @@ if($base64 == "base64"){
 }
 $config = array();
 $result = $qiniu->upload($config, $upfile);
+// var_dump($upfile);
+// var_dump($result);
 if(!empty($result['hash'])){
     $url = '';
     if(htmlspecialchars($_GET['action']) == 'uploadimage'){

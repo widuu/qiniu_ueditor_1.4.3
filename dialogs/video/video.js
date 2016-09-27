@@ -716,8 +716,10 @@
             uploader.on('uploadBeforeSend', function (file, data, header) {
                 //这里可以通过data对象添加POST参数
                 header['X_Requested_With'] = 'XMLHttpRequest';
-                data['key']= file.file.name;
-                var filename = file.file.name;
+                var path = editor.getOpt('uploadPath');
+                var now = new Date();
+                var filename = path + now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()+'/'+file.file.name;
+                data['key']= filename;
                 var token ="";
                 $.ajax({
                             dataType:'text',

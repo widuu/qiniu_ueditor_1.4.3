@@ -702,13 +702,15 @@
                 //这里可以通过data对象添加POST参数
                 header['X_Requested_With'] = 'XMLHttpRequest';
                 var type = editor.getOpt('imageSaveType');
+                var path = editor.getOpt('uploadPath');
                 //生成一个随机数目，防止批量上传的时候文件名同名出错
                 var randNumber = Math.floor(Math.random()*10).toString()+Math.floor(Math.random()*20).toString();
+                var now = new Date();
                 if(type == 'date'){
-                var filename = Date.parse(new Date())+randNumber+"."+file.file.ext;
+                var filename = path + now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()+'/'+Date.parse(now)+randNumber+"."+file.file.ext;
                     data['key'] = filename;
                 }else{
-                    var filename = file.file.name;
+                    var filename = path + file.file.name;
                     data['key'] = filename;
                 }
                 var token ="";
