@@ -487,12 +487,14 @@
                 //这里可以通过data对象添加POST参数
                 header['X_Requested_With'] = 'XMLHttpRequest';
                 var type = editor.getOpt('imageSaveType');
+                var path = editor.getOpt('uploadPath');
 				var filename = '';
+                var now = new Date();
 				if(type == 'date'){
-					data['key']= Date.parse(new Date())+"."+file.file.ext;
-					var filename = Date.parse(new Date())+"."+file.file.ext;
+                    var filename = path + now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()+'/'+Date.parse(now)+"."+file.file.ext;
+					data['key']= filename;
 				}else{
-					data['key']= file.file.name;
+					data['key']= path + file.file.name;
 					var filename = file.file.name;
 				}
 				var token ="";
