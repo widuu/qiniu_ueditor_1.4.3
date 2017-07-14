@@ -78,7 +78,7 @@ Ueditor七牛云存储版本
     "qiniuUploadPath"  : "uploads/",   /* 七牛上传的前缀 */
 	"qiniuDatePath"    : "mmdd",       /* 自定义文件夹后的时间例如 uploads/0712 留空uploads/, 格式 yyyy == 2017 yy == 17 mm 月份 07 dd 日期 12 */
 	"uploadSaveType"   : "date",       /* 保存文件的名称类型 */
-	"qiniuGetTokenUrl" : "../../php/controller.php?action=getToken", /* 获取 Token 的URL */
+	"getTokenActionName" : "getToken", /* 获取 Token 的方法 */
 
 ### 技术支持
 

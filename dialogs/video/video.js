@@ -11,6 +11,11 @@
     var video = {},
         uploadVideoList = [],
         isModifyUploadVideo = false,
+        // widuu 添加上传判断参数
+        uploadType,
+        uploadUrl,
+        isDirect,
+        // end widuu
         uploadFile;
 
     window.onload = function(){
@@ -18,6 +23,8 @@
         initTabs();
         initVideo();
         initUpload();
+        // widuu 初始化配置
+        initUploadType();
     };
 
     /* 初始化tab标签 */
@@ -39,6 +46,35 @@
             });
         }
     }
+
+    /* widuu初始化上传参数 */
+    function initUploadType(){
+        uploadType = editor.getOpt('uploadType');
+        isDirect   = editor.getOpt('qiniuUploadType');
+        if( uploadType == 'local' || isDirect == 'php' ){
+
+            var params = utils.serializeParam(editor.queryCommandValue('serverparam')) || '',
+                actionUrl = editor.getActionUrl(editor.getOpt('imageActionName')),
+                url = utils.formatUrl(actionUrl + (actionUrl.indexOf('?') == -1 ? '?':'&') + 'encode=utf-8&' + params);
+            uploadUrl = url;
+        }else{
+            uploadUrl = editor.getOpt('uploadQiniuUrl');
+        }
+
+    }
+
+    /* widuu 格式化日期方法 */
+    Date.prototype.Format = function (fmt) { 
+        var o = {
+            "m+": this.getMonth() + 1,
+            "d+": this.getDate(), 
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    /* end widuu */
 
     function initVideo(){
         createAlignButton( ["videoFloat", "upload_alignment"] );
@@ -127,7 +163,7 @@
             align: align
         }, isModifyUploadVideo ? 'upload':null);
     }
-
+ 
     /**
      * 将元素id下的所有代表视频的图片插入编辑器中
      * @param id
@@ -703,9 +739,12 @@
                         break;
                     case 'startUpload':
                         /* 添加额外的GET参数 */
-                        var params = utils.serializeParam(editor.queryCommandValue('serverparam')) || '',
-                            url = utils.formatUrl(actionUrl + (actionUrl.indexOf('?') == -1 ? '?':'&') + 'encode=utf-8&' + params);
-                        uploader.option('server', url);
+                        //var params = utils.serializeParam(editor.queryCommandValue('serverparam')) || '',
+                         //   url = utils.formatUrl(actionUrl + (actionUrl.indexOf('?') == -1 ? '?':'&') + 'encode=utf-8&' + params);
+                        // widuu 
+                        //uploader.option('server', url);
+                        uploader.option('server', uploadUrl);
+                        // end widuu
                         setState('uploading', files);
                         break;
                     case 'stopUpload':
@@ -717,6 +756,49 @@
             uploader.on('uploadBeforeSend', function (file, data, header) {
                 //这里可以通过data对象添加POST参数
                 header['X_Requested_With'] = 'XMLHttpRequest';
+                // widuu 如果是qiniu上传并且不通过php上传就通过ajax来获取token
+                if( uploadType == 'qiniu' &&  isDirect != 'php'  ){
+                    var $file = $('#' + file.id),
+                        type  = editor.getOpt('uploadSaveType'),
+                        path  = editor.getOpt('qiniuUploadPath'),
+                        time  = editor.getOpt('qiniuDatePath');
+
+                    //生成一个随机数目，防止批量上传的时候文件名同名出错
+                    var randNumber = (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+                    var now = new Date();
+                    var filename = '';
+                    if( type == 'date' ){
+                        if( time != '' ){
+                            filename = path + new Date().Format(time) + '/'+ Date.parse(now)+randNumber+"."+file.file.ext;
+                        }else{
+                            filename = path + '/'+ Date.parse(now)+randNumber+"."+file.file.ext;
+                        }
+                        data['key'] = filename;
+                    }else{
+                        filename = path + file.file.name;
+                        data['key'] = filename;
+                    }
+                    var token ="";
+                     var url = editor.getActionUrl(editor.getOpt('getTokenActionName')),
+                        isJsonp = utils.isCrossDomainUrl(url);
+                    $.ajax({
+                        dataType : isJsonp ? 'jsonp':'json',
+                        async    : false,
+                        method   : 'post',
+                        data     : {"key":filename},
+                        url      : url,
+                        success:function(data) {
+                            if( data.state == 'SUCCESS' ){
+                                console.log(data.token);
+                                token = data.token;
+                            }else{
+                                $file.find('.error').text(data.error).show();
+                            }
+                        }
+                    });
+                    data['token'] = token;
+                }
+                // end widuu
             });
 
             uploader.on('uploadProgress', function (file, percentage) {

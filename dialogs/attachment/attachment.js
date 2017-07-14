@@ -548,9 +548,10 @@
                         data['key'] = filename;
                     }
                     var token ="";
-                    var url = editor.getOpt('qiniuGetTokenUrl');
+                    var url = editor.getActionUrl(editor.getOpt('getTokenActionName')),
+                        isJsonp = utils.isCrossDomainUrl(url);
                     $.ajax({
-                        dataType : 'json',
+                        dataType : isJsonp ? 'jsonp':'json',
                         async    : false,
                         method   : 'post',
                         data     : {"key":filename},

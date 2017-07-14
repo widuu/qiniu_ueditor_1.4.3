@@ -10,36 +10,36 @@
     var remoteImage,
         uploadImage,
         onlineImage,
-		// widuu 添加上传判断参数
-		uploadType,
-		uploadUrl,
+        // widuu 添加上传判断参数
+        uploadType,
+        uploadUrl,
         isDirect,
-		// end widuu
+        // end widuu
         searchImage;
 
     window.onload = function () {
         initTabs();
         initAlign();
         initButtons();
-		// widuu 初始化配置
-		initUploadType();
+        // widuu 初始化配置
+        initUploadType();
     };
-	
-	/* widuu初始化上传参数 */
-	function initUploadType(){
-		uploadType = editor.getOpt('uploadType');
+    
+    /* widuu初始化上传参数 */
+    function initUploadType(){
+        uploadType = editor.getOpt('uploadType');
         isDirect   = editor.getOpt('qiniuUploadType');
-		if( uploadType == 'local' || isDirect == 'php' ){
+        if( uploadType == 'local' || isDirect == 'php' ){
 
-			var params = utils.serializeParam(editor.queryCommandValue('serverparam')) || '',
+            var params = utils.serializeParam(editor.queryCommandValue('serverparam')) || '',
                 actionUrl = editor.getActionUrl(editor.getOpt('imageActionName')),
                 url = utils.formatUrl(actionUrl + (actionUrl.indexOf('?') == -1 ? '?':'&') + 'encode=utf-8&' + params);
-			uploadUrl = url;
-		}else{
-			uploadUrl = editor.getOpt('uploadQiniuUrl');
-		}
+            uploadUrl = url;
+        }else{
+            uploadUrl = editor.getOpt('uploadQiniuUrl');
+        }
 
-	}
+    }
 
     /* 初始化tab标签 */
     function initTabs() {
@@ -728,10 +728,10 @@
                         /* 添加额外的GET参数 */
                         //var params = utils.serializeParam(editor.queryCommandValue('serverparam')) || '',
                          //   url = utils.formatUrl(actionUrl + (actionUrl.indexOf('?') == -1 ? '?':'&') + 'encode=utf-8&' + params);
-						// widuu 
-						//uploader.option('server', url);
-						uploader.option('server', uploadUrl);
-						// end widuu
+                        // widuu 
+                        //uploader.option('server', url);
+                        uploader.option('server', uploadUrl);
+                        // end widuu
                         setState('uploading', files);
                         break;
                     case 'stopUpload':
@@ -743,32 +743,33 @@
             uploader.on('uploadBeforeSend', function (file, data, header) {
                 //这里可以通过data对象添加POST参数
                 header['X_Requested_With'] = 'XMLHttpRequest';
-				// widuu 如果是qiniu上传并且不通过php上传就通过ajax来获取token
-				if( uploadType == 'qiniu' &&  isDirect != 'php'  ){
+                // widuu 如果是qiniu上传并且不通过php上传就通过ajax来获取token
+                if( uploadType == 'qiniu' &&  isDirect != 'php'  ){
                     var $file = $('#' + file.id),
                         type  = editor.getOpt('uploadSaveType'),
                         path  = editor.getOpt('qiniuUploadPath'),
                         time  = editor.getOpt('qiniuDatePath');
 
-					//生成一个随机数目，防止批量上传的时候文件名同名出错
-					var randNumber = (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-					var now = new Date();
+                    //生成一个随机数目，防止批量上传的时候文件名同名出错
+                    var randNumber = (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+                    var now = new Date();
                     var filename = '';
-					if( type == 'date' ){
+                    if( type == 'date' ){
                         if( time != '' ){
                             filename = path + new Date().Format(time) + '/'+ Date.parse(now)+randNumber+"."+file.file.ext;
                         }else{
                             filename = path + '/'+ Date.parse(now)+randNumber+"."+file.file.ext;
                         }
-						data['key'] = filename;
-					}else{
-						filename = path + file.file.name;
-						data['key'] = filename;
-					}
-					var token ="";
-					var url = editor.getOpt('qiniuGetTokenUrl');
-					$.ajax({
-                        dataType : 'json',
+                        data['key'] = filename;
+                    }else{
+                        filename = path + file.file.name;
+                        data['key'] = filename;
+                    }
+                    var token ="";
+                     var url = editor.getActionUrl(editor.getOpt('getTokenActionName')),
+                        isJsonp = utils.isCrossDomainUrl(url);
+                    $.ajax({
+                        dataType : isJsonp ? 'jsonp':'json',
                         async    : false,
                         method   : 'post',
                         data     : {"key":filename},
@@ -782,9 +783,9 @@
                             }
                         }
                     });
-					data['token'] = token;
-				}
-				// end widuu
+                    data['token'] = token;
+                }
+                // end widuu
             });
 
             uploader.on('uploadProgress', function (file, percentage) {
