@@ -14,7 +14,7 @@
  */
 
 date_default_timezone_set("Asia/chongqing");
-error_reporting(E_ALL);
+error_reporting(E_ERROR);
 header("Content-Type: text/html; charset=utf-8");
 
 define('DS', DIRECTORY_SEPARATOR);
@@ -51,7 +51,7 @@ $handle = new Channel($config);
 // 运行
 $response = $handle->dispatcher($action);
 
-echo json_encode($response);
+$result = json_encode($response);
 
 /* 输出结果 */
 if (isset($_GET["callback"])) {
@@ -65,3 +65,5 @@ if (isset($_GET["callback"])) {
 } else {
     echo $result;
 }
+
+exit();
