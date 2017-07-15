@@ -776,7 +776,6 @@
                         url      : url,
                         success:function(data) {
                             if( data.state == 'SUCCESS' ){
-                                console.log(data.token);
                                 token = data.token;
                             }else{
                                 $file.find('.error').text(data.error).show();
