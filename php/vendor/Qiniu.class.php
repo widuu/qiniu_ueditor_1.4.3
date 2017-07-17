@@ -139,6 +139,17 @@ class Qiniu extends Base{
 	}
 
 	/**
+	 * 分片上传合成文件的方法
+	 * 
+	 * @author widuu <admin@widuu.com>
+	 */
+
+	public function makeFile(){
+		$ue_config = $this->getUeConfig();
+		return $this->qiniu->Synthesis($_POST,$ue_config);
+	}
+
+	/**
 	 * 远程图片抓取 [采用原有ueditor方法]
 	 * 
 	 * @author widuu <admin@widuu.com>

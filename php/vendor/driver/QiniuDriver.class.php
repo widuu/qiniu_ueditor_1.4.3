@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * 七牛处理驱动
+ * 
+ * @author   widuu <admin@widuu.com>
+ * @document https://github.com/widuu/qiniu_ueditor_1.4.3
+ */
+
 class QiniuDriver{
 
 	private  $qiniu_rsf_host = 'http://rsf.qbox.me';
@@ -92,6 +99,42 @@ class QiniuDriver{
           "url"   	 => $url,                       
           "size" 	 => $response['fsize'],           
         );
+	}
+	
+	/**
+	 * 七牛合成文件的方法
+	 * @param    array  合成文件信息
+	 * @return   array
+	 * @author   widuu <admin@widuu.com>
+	 */
+
+	public function Synthesis( $params = array(),$ue_config ){
+		$ctx_list   = rtrim($_POST['ctx'],",");
+		$file_type  = trim($_POST['type']);
+		$file_size  = trim($_POST['size']);
+		$field_name = trim($_POST['name']);
+		$upload_url = trim($_POST['host']);
+
+		$file_name  = $this->getFileName($field_name,$ue_config,true);
+
+		$path = '/mkfile/'.intval($file_size).'/key/'.$this->SafeBase64Encode($file_name);
+		$path .= '/mimeType/'.$this->SafeBase64Encode($file_type);
+
+		$headers = array(
+			'Content-Type'   => "text/plain",
+			'Authorization'  => "UpToken ".$this->getUploadToken($file_name),
+			);
+
+		$response = $this->request($upload_url.$path, 'POST', $headers, $ctx_list);
+	
+		return array(
+          "state" 	 => $response['state'],         
+          "url"   	 => $response['url'],  
+          "type"  	 => $_POST['type'],                     
+          "size"  	 => $response['size'],   
+          "original" => $_POST['name']       
+        );
+		
 	}
 
 	/**

@@ -15,6 +15,7 @@ Ueditor七牛云存储版本
  - 支持二次开发，添加其它的上传方式如 `aliyun OSS`等
  - 通过七牛 `fetch` 功能来抓取远程图片
  - 新增上传模式，[直传|服务器上传]，服务器上传是通过上传到服务器的临时文件再上传到七牛
+ - 大视频分片上传到七牛[2017/7/17]
 
 #### 修复 
 
@@ -79,6 +80,16 @@ Ueditor七牛云存储版本
 	"qiniuDatePath"    : "mmdd",       /* 自定义文件夹后的时间例如 uploads/0712 留空uploads/, 格式 yyyy == 2017 yy == 17 mm 月份 07 dd 日期 12 */
 	"uploadSaveType"   : "date",       /* 保存文件的名称类型 */
 	"getTokenActionName" : "getToken", /* 获取 Token 的方法 */
+
+#### 大视频分片上传
+
+> 修改 `config.json`
+
+	"VideoBlockFileSize" : 4194304,  /* 视频块大小,是每块4MB，所以这个不用修改 */
+    "VideoChunkFileSize" : 2097152,  /* 视频上传分块大小，建议是整数倍防止出错，列如1048576（1MB），524288（512KB）默认是2MB */
+    "VideoChunkMaxSize"  : 10485760, /* 视频文件超过多大来进行分片上传，现在默认是10MB */
+    "ChunkUploadQiniuUrl": "http://upload.qiniu.com", /* 分块上传的首块上传域名为：上传到华东一区的域名为up.qiniu.com、up-z0.qiniu.com和upload.qiniu.com；上传到华北一区的域名为up-z1.qiniu.com和upload-z1.qiniu.com */
+    "makeFileActionName" : "makeFile",  /* 合成文件的url方法 */
 
 ### 技术支持
 
