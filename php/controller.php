@@ -43,7 +43,7 @@ spl_autoload_register(function($class){
 $config = require_once( UEDITOR_PATH.'config.php' );
 
 // 获取方法
-$action = !empty(trim($_GET['action'])) ? trim($_GET['action']) : '';
+$action = !empty($_GET['action']) ? trim($_GET['action']) : '';
 
 // 实例化处理方法
 $handle = new Channel($config);
