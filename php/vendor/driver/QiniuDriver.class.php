@@ -354,7 +354,7 @@ class QiniuDriver{
 
 	private function getDirectReturnBody(){
 		//使用水印和非使用水印拼接方法
-		if( !$this->user_water ){
+		if( !$this->use_water ){
 			$url = trim($this->host , "/")."/$(key)";
 		}else{
 			$water_image  = $this->SafeBase64Encode($this->water_url);
