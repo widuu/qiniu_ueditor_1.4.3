@@ -243,7 +243,7 @@ class QiniuDriver{
 			}else{
 				$save_name = pathinfo($field_name, PATHINFO_EXTENSION);
 			}
-			$file_name = $prefix . $format.'/'.time().mt_rand(0,10).'.'.$save_name;
+			$file_name = $prefix . $format.'/'.time().mt_rand(0,215909581).'.'.$save_name;
 		}else{
 			// 不是远程抓取
 			if( !$flag ){
