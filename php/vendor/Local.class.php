@@ -107,7 +107,7 @@ class Local extends Base{
 	 * @author widuu <admin@widuu.com>
 	 */
 
-	public function listFile($method){
+	public function listFiles($method){
 		$ue_config = $this->getUeConfig();
 		
 		if( $method == 'listimage'){
