@@ -73,7 +73,7 @@ class Qiniu extends Base{
 	 * @author  widuu <admin@widuu.com>
 	 */
 
-	public function listFile( $method ){
+	public function listFiles( $method ){
 
 		$ue_config = $this->getUeConfig();
 		
@@ -111,7 +111,7 @@ class Qiniu extends Base{
 		/* 获取指定范围的列表 */
 		$len = count($files['items']);
 
-		for ($i = 0; $i<=$len; $i++ ){
+		for ($i = 0; $i < $len; $i++ ){
 		    if ( preg_match( "/\.($allow_files)$/i" , $files['items'][$i]['key'] ) ) {
 	            $list[] = array(
 	                "url" => $this->qiniu->host."/".$files['items'][$i]['key'],
