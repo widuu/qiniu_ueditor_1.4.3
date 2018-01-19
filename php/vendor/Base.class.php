@@ -48,7 +48,7 @@ class Base{
 			if( strpos(strtolower($method),"upload") !== false ){
 				return $this->upload($method);
 			}else if( strpos(strtolower($method),"list") !== false ){
-				return $this->listFile($method);
+				return $this->listFiles($method);
 			}
 		}
 
