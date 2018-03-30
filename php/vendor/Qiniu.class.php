@@ -19,6 +19,10 @@ class Qiniu extends Base{
 
 	public function __construct($config){
 		parent::__construct($config);
+		// fix 上传区域错误
+		if( isset($this->ue_config['uploadQiniuUrl']) && !empty($this->ue_config['uploadQiniuUrl']) ){
+			$this->config['qiniu_up_host'] = $this->ue_config['uploadQiniuUrl'];
+		}
 		$this->qiniu = new QiniuDriver($this->config);
 	}
 
@@ -111,7 +115,7 @@ class Qiniu extends Base{
 		/* 获取指定范围的列表 */
 		$len = count($files['items']);
 
-		for ($i = 0; $i<=$len; $i++ ){
+		for ($i = 0; $i < $len; $i++ ){
 		    if ( preg_match( "/\.($allow_files)$/i" , $files['items'][$i]['key'] ) ) {
 	            $list[] = array(
 	                "url" => $this->qiniu->host."/".$files['items'][$i]['key'],

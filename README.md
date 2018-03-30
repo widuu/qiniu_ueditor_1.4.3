@@ -13,6 +13,11 @@ Ueditor七牛云存储版本
 ```
 具体地区的上传URL请查看七牛官方存储区域，地址:[https://developer.qiniu.com/kodo/manual/1671/region-endpoint](https://developer.qiniu.com/kodo/manual/1671/region-endpoint)
 
+### BUG修复
+
+ - 上传区域错误，现在可通过`uploadQiniuUrl`来更改区域 - 2018/3/30 
+ - 图片列表多现实一个的错误 - 2018/3/30
+
 ### 新版本说明
 
 >注意：新版本不兼容老版本，网上整合教程现在最多的是老版本，如果查看的是网站教程请点击老版本地址来下载老版本
