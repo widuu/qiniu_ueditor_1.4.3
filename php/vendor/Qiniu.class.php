@@ -20,9 +20,19 @@ class Qiniu extends Base{
 	public function __construct($config){
 		parent::__construct($config);
 		// fix 上传区域错误
-		if( isset($this->ue_config['uploadQiniuUrl']) && !empty($this->ue_config['uploadQiniuUrl']) ){
-			$this->config['qiniu_up_host'] = $this->ue_config['uploadQiniuUrl'];
+		$config_access = array(
+			'uploadQiniuUrl' => 'qiniu_up_host',
+			'QiniuRsfHost'   => 'qiniu_rsf_host',
+			'QiniuRsHost'	 => 'qiniu_rs_host',
+			'QiniuIoHost'	 => 'qiniu_io_host'
+		);
+		foreach($config_access as $k => $v)
+		{
+			if( isset($this->ue_config[$k]) && !empty($this->ue_config[$k]) ){
+				$this->config[$v] = $this->ue_config[$k];
+			}
 		}
+		
 		$this->qiniu = new QiniuDriver($this->config);
 	}
 

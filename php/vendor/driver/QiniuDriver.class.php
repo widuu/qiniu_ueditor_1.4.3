@@ -86,7 +86,7 @@ class QiniuDriver{
 		// 返回数据
 		$response = $this->request($url, 'POST', array('Authorization'=>"QBox $token"));
 		// 如果有错误信息
-		if( !empty($result['error']) ){
+		if( !empty($response['error']) ){
 			return array(
 				'state' => $result['error']
 			);
@@ -457,7 +457,10 @@ class QiniuDriver{
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-
+		// widuu
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		// end wdiuu
         if ($method == 'PUT' || $method == 'POST') {
 			curl_setopt($ch, CURLOPT_POST, 1);
         } else {

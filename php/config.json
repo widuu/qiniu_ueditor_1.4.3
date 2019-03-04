@@ -3,7 +3,7 @@
 	/* 七牛云存储配置start */
 	"uploadType" : "qiniu", /* qiniu|local 【qiniu】七牛云存储 【local】本地上传*/
 	"qiniuUploadType"  : "url", /* url|php 【url】 通过URL直传，根据token来判断返回地址,【php】 通过php文件方式传输 */
-    "uploadQiniuUrl"   : "http://upload.qiniu.com/", /* 七牛上传地址 */
+    "uploadQiniuUrl"   : "https://up.qiniup.com", /* 七牛上传地址 */
     "qiniuUploadPath"  : "uploads/",   /* 七牛上传的前缀 */
 	"qiniuDatePath"    : "mmdd",       /* 文件夹后的时间例如 uploads/0712 留空uploads/, 格式 yyyy == 2017 yy == 17 mm 月份 07 dd 日期 12 */
 	"uploadSaveType"   : "date",       /* 保存文件的名称类型 */
@@ -12,9 +12,12 @@
     "VideoBlockFileSize" : 4194304,  /* 视频块大小,是每块4MB，所以这个不用修改 */
     "VideoChunkFileSize" : 2097152,  /* 视频上传分块大小，建议是整数倍防止出错，列如1048576（1MB），524288（512KB）默认是2MB */
     "VideoChunkMaxSize"  : 10485760, /* 视频文件超过多大来进行分片上传，现在默认是10MB */
-    "ChunkUploadQiniuUrl": "http://upload.qiniu.com", /* 分片上传创建的host地址 */
+    "ChunkUploadQiniuUrl": "https://up.qiniup.com", /* 分片上传创建的host地址 */
     "makeFileActionName" : "makeFile", /* 合成文件的url方法 */
-
+    // 配置文件
+    "QiniuRsfHost" : "http://rsf.qbox.me",
+    "QiniuRsHost"  : "http://rs.qbox.me",
+    "QiniuIoHost"  : "http://iovip.qbox.me",
 	/* 七牛云存储配置end */
 	
     /* 上传图片配置项 */

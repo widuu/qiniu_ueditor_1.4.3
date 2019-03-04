@@ -13,6 +13,8 @@ Ueditor七牛云存储版本
 ```
 具体地区的上传URL请查看七牛官方存储区域，地址:[https://developer.qiniu.com/kodo/manual/1671/region-endpoint](https://developer.qiniu.com/kodo/manual/1671/region-endpoint)
 
+> 使用ssl协议时，请认真查看七牛官方的上传url地址，然后打开看是否报错，有人已经反馈ssl无法上传，其实是config.json配置中的URL问题。
+
 ### BUG修复
 
  - 上传区域错误，现在可通过`uploadQiniuUrl`来更改区域 - 2018/3/30 
@@ -31,6 +33,7 @@ Ueditor七牛云存储版本
  - 通过七牛 `fetch` 功能来抓取远程图片
  - 新增上传模式，[直传|服务器上传]，服务器上传是通过上传到服务器的临时文件再上传到七牛
  - 大视频分片上传到七牛[2017/7/17]
+ - `config.json` 中增加 `QiniuDriver.class.php` 中的域名配置参数
 
 #### 修复 
 
@@ -38,6 +41,7 @@ Ueditor七牛云存储版本
  - 使用 `fetch` 方法来抓取远程图片
  - 修复老版本在线管理限定的1000个文件列表
  - 列表分页通过七牛传输的 `marker` 来进行查找分页
+ - 修复七牛 `fetch` 错误返回信息
 
 
 ### 配置
